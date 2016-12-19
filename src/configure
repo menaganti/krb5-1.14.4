@@ -576,7 +576,7 @@ ac_default_prefix=/usr/local
 ac_clean_files=
 ac_config_libobj_dir=.
 LIBOBJS=
-cross_compiling=no
+cross_compiling=yes
 subdirs=
 MFLAGS=
 MAKEFLAGS=
@@ -5710,9 +5710,9 @@ fi
 a=no
 b=no
 # blindly assume we have 'unlink'...
-if test "$cross_compiling" = yes; then :
-  as_fn_error $? "Cannot test for constructor/destructor support when cross compiling" "$LINENO" 5
-else
+#if test "$cross_compiling" = yes; then :
+#  as_fn_error $? "Cannot test for constructor/destructor support when cross compiling" "$LINENO" 5
+#else
   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 void foo1() __attribute__((constructor));
@@ -5744,7 +5744,7 @@ case $krb5_cv_host in
 esac
 krb5_cv_attr_constructor_destructor="$a,$b"
 
-fi
+#fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $krb5_cv_attr_constructor_destructor" >&5
 $as_echo "$krb5_cv_attr_constructor_destructor" >&6; }
 # Okay, krb5_cv_... should be set now.
@@ -7533,9 +7533,9 @@ if ${ac_cv_func_regcomp+:} false; then :
   $as_echo_n "(cached) " >&6
 else
 
-if test "$cross_compiling" = yes; then :
-  as_fn_error $? "Cannot test regcomp when cross compiling" "$LINENO" 5
-else
+#if test "$cross_compiling" = yes; then :
+#  as_fn_error $? "Cannot test regcomp when cross compiling" "$LINENO" 5
+#else
   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
@@ -7554,7 +7554,7 @@ rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
   conftest.$ac_objext conftest.beam conftest.$ac_ext
 fi
 
-fi
+#fi
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_func_regcomp" >&5
 $as_echo "$ac_cv_func_regcomp" >&6; }
@@ -11359,9 +11359,9 @@ if ${ac_cv_printf_positional+:} false; then :
   $as_echo_n "(cached) " >&6
 else
 
-if test "$cross_compiling" = yes; then :
-  as_fn_error $? "Cannot test for printf positional argument support when cross compiling" "$LINENO" 5
-else
+#if test "$cross_compiling" = yes; then :
+#  as_fn_error $? "Cannot test for printf positional argument support when cross compiling" "$LINENO" 5
+#else
   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
@@ -11387,7 +11387,7 @@ rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext \
   conftest.$ac_objext conftest.beam conftest.$ac_ext
 fi
 
-fi
+#fi
 
 # Nothing for autoconf.h for now.
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_printf_positional" >&5
@@ -13111,6 +13111,7 @@ ac_config_files="$ac_config_files build-tools/kadm-server.pc build-tools/kadm-cl
  ac_config_files="$ac_config_files clients/Makefile:$srcdir/./config/pre.in:clients/Makefile.in:clients/deps:$srcdir/./config/post.in"
  ac_config_files="$ac_config_files clients/klist/Makefile:$srcdir/./config/pre.in:clients/klist/Makefile.in:clients/klist/deps:$srcdir/./config/post.in"
  ac_config_files="$ac_config_files clients/kinit/Makefile:$srcdir/./config/pre.in:clients/kinit/Makefile.in:clients/kinit/deps:$srcdir/./config/post.in"
+ ac_config_files="$ac_config_files clients/adlogin/Makefile:$srcdir/./config/pre.in:clients/adlogin/Makefile.in:clients/adlogin/deps:$srcdir/./config/post.in"
  ac_config_files="$ac_config_files clients/kvno/Makefile:$srcdir/./config/pre.in:clients/kvno/Makefile.in:clients/kvno/deps:$srcdir/./config/post.in"
  ac_config_files="$ac_config_files clients/kdestroy/Makefile:$srcdir/./config/pre.in:clients/kdestroy/Makefile.in:clients/kdestroy/deps:$srcdir/./config/post.in"
  ac_config_files="$ac_config_files clients/kpasswd/Makefile:$srcdir/./config/pre.in:clients/kpasswd/Makefile.in:clients/kpasswd/deps:$srcdir/./config/post.in"
@@ -13951,6 +13952,7 @@ do
     "clients/Makefile") CONFIG_FILES="$CONFIG_FILES clients/Makefile:$srcdir/./config/pre.in:clients/Makefile.in:clients/deps:$srcdir/./config/post.in" ;;
     "clients/klist/Makefile") CONFIG_FILES="$CONFIG_FILES clients/klist/Makefile:$srcdir/./config/pre.in:clients/klist/Makefile.in:clients/klist/deps:$srcdir/./config/post.in" ;;
     "clients/kinit/Makefile") CONFIG_FILES="$CONFIG_FILES clients/kinit/Makefile:$srcdir/./config/pre.in:clients/kinit/Makefile.in:clients/kinit/deps:$srcdir/./config/post.in" ;;
+    "clients/adlogin/Makefile") CONFIG_FILES="$CONFIG_FILES clients/adlogin/Makefile:$srcdir/./config/pre.in:clients/adlogin/Makefile.in:clients/adlogin/deps:$srcdir/./config/post.in" ;;
     "clients/kvno/Makefile") CONFIG_FILES="$CONFIG_FILES clients/kvno/Makefile:$srcdir/./config/pre.in:clients/kvno/Makefile.in:clients/kvno/deps:$srcdir/./config/post.in" ;;
     "clients/kdestroy/Makefile") CONFIG_FILES="$CONFIG_FILES clients/kdestroy/Makefile:$srcdir/./config/pre.in:clients/kdestroy/Makefile.in:clients/kdestroy/deps:$srcdir/./config/post.in" ;;
     "clients/kpasswd/Makefile") CONFIG_FILES="$CONFIG_FILES clients/kpasswd/Makefile:$srcdir/./config/pre.in:clients/kpasswd/Makefile.in:clients/kpasswd/deps:$srcdir/./config/post.in" ;;

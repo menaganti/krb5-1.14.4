@@ -406,10 +406,10 @@ typedef struct { int error; unsigned char did_run; } k5_init_t;
 # define MAKE_FINI_FUNCTION(NAME)       \
         static void NAME(void) __attribute__((destructor))
 
-#else
+/*#else
 
 # error "Don't know how to do unload-time finalization for this configuration."
-
+*/
 #endif
 
 #ifndef SIZE_MAX
