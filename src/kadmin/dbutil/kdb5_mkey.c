@@ -782,7 +782,7 @@ update_princ_encryption_1(void *cb, krb5_db_entry *ent)
     struct update_enc_mkvno *p = cb;
     char *pname = 0;
     krb5_error_code retval;
-    int match;
+    int match = 0;
     krb5_timestamp now;
     int result;
     krb5_kvno old_mkvno;
@@ -804,9 +804,9 @@ update_princ_encryption_1(void *cb, krb5_db_entry *ent)
 #ifdef POSIX_REGEXPS
     match = (regexec(&p->preg, pname, 0, NULL, 0) == 0);
 #endif
-#ifdef BSD_REGEXPS
+/*#ifdef BSD_REGEXPS
     match = (re_exec(pname) != 0);
-#endif
+#endif*/
     if (!match) {
         goto skip;
     }
@@ -962,16 +962,9 @@ kdb5_update_princ_encryption(int argc, char *argv[])
         goto cleanup;
     }
 
-    if (
 #ifdef SOLARIS_REGEXPS
+    if (
         ((data.expbuf = compile(regexp, NULL, NULL)) == NULL)
-#endif
-#ifdef POSIX_REGEXPS
-        ((regcomp(&data.preg, regexp, REG_NOSUB)) != 0)
-#endif
-#ifdef BSD_REGEXPS
-        ((msg = (char *) re_comp(regexp)) != NULL)
-#endif
     ) {
         /* XXX syslog msg or regerr(regerrno) */
         com_err(progname, 0, _("error compiling converted regexp '%s'"),
@@ -979,6 +972,21 @@ kdb5_update_princ_encryption(int argc, char *argv[])
         exit_status++;
         goto cleanup;
     }
+#endif
+#ifdef POSIX_REGEXPS
+    if (
+        ((regcomp(&data.preg, regexp, REG_NOSUB)) != 0)
+    ) {
+        /* XXX syslog msg or regerr(regerrno) */
+        com_err(progname, 0, _("error compiling converted regexp '%s'"),
+                regexp);
+        exit_status++;
+        goto cleanup;
+    }
+#endif
+/*#ifdef BSD_REGEXPS
+        ((msg = (char *) re_comp(regexp)) != NULL)
+#endif*/
 
     retval = krb5_db_get_principal(util_context, master_princ, 0,
                                    &master_entry);

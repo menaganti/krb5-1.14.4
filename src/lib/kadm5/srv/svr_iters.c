@@ -129,16 +129,16 @@ static kadm5_ret_t glob_to_regexp(char *glob, char *realm, char **regexp)
 
 static void get_either_iter(struct iter_data *data, char *name)
 {
-    int match;
+    int match = 0;
 #ifdef SOLARIS_REGEXPS
     match = (step(name, data->expbuf) != 0);
 #endif
 #ifdef POSIX_REGEXPS
     match = (regexec(&data->preg, name, 0, NULL, 0) == 0);
 #endif
-#ifdef BSD_REGEXPS
+/*#ifdef BSD_REGEXPS
     match = (re_exec(name) != 0);
-#endif
+#endif*/
     if (match) {
         if (data->n_names == data->sz_names) {
             int new_sz = data->sz_names * 2;
@@ -202,23 +202,31 @@ static kadm5_ret_t kadm5_get_either(int princ,
                               &regexp)) != KADM5_OK)
         return ret;
 
-    if (
 #ifdef SOLARIS_REGEXPS
-        ((data.expbuf = compile(regexp, NULL, NULL)) == NULL)
-#endif
-#ifdef POSIX_REGEXPS
-        ((regcomp(&data.preg, regexp, REG_NOSUB)) != 0)
-#endif
-#ifdef BSD_REGEXPS
-        ((msg = (char *) re_comp(regexp)) != NULL)
-#endif
-    )
+    if (((data.expbuf = compile(regexp, NULL, NULL)) == NULL))
     {
         /* XXX syslog msg or regerr(regerrno) */
         free(regexp);
         return EINVAL;
     }
-
+#endif
+#ifdef POSIX_REGEXPS
+    if(((regcomp(&data.preg, regexp, REG_NOSUB)) != 0))
+    {
+        /* XXX syslog msg or regerr(regerrno) */
+        free(regexp);
+        return EINVAL;
+    }
+#endif
+/*#ifdef BSD_REGEXPS
+        ((msg = (char *) re_comp(regexp)) != NULL)
+#endif
+    )
+    {
+        free(regexp);
+        return EINVAL;
+    }
+*/
     data.n_names = 0;
     data.sz_names = 10;
     data.malloc_failed = 0;

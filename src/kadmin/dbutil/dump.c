@@ -278,8 +278,10 @@ name_matches(char *name, struct dump_args *args)
                     re_result);
             break;
         }
+#ifdef HAVE_REGEXP_H
         if (re_exec(name))
             match = 1;
+#endif
 #else /* HAVE_RE_COMP */
         /* If no regular expression support, then just compare the strings. */
         if (!strcmp(args->names[i], name))

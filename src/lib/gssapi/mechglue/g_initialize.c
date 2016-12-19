@@ -41,9 +41,9 @@
 #include <string.h>
 #include <ctype.h>
 #include <errno.h>
-#ifndef _WIN32
+/*#ifndef _WIN32
 #include <glob.h>
-#endif
+#endif*/
 
 #define	M_DEFAULT	"default"
 
@@ -426,6 +426,7 @@ load_if_changed(const char *pathname, time_t last, time_t *highest)
 static void
 loadConfigFiles()
 {
+#ifdef ENABLE_COMMENTED_OUT_CODE
 	glob_t globbuf;
 	time_t highest = 0, now;
 	char **path;
@@ -445,6 +446,9 @@ loadConfigFiles()
 	globfree(&globbuf);
 
 	g_confFileModTime = highest;
+#else
+        printf("%s commented out\n", __FUNCTION__);
+#endif
 }
 #endif
 
