@@ -28,10 +28,7 @@ testdir/
 testlog
 
 # Ignore the build directory
-/build/
-/arm-linux
-/output
-/android
+/build_android
 /build_arm-linux/
 
 # The autom4te cache directory
